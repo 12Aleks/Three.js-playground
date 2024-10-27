@@ -39,21 +39,24 @@ const textureMapMaterial = new THREE.MeshBasicMaterial({map: mapTexture})
 
 
 
-const sphereGeometry = new THREE.SphereGeometry(10, 40, 40);
+const sphereGeometry = new THREE.SphereGeometry(20, 80, 80);
 const sphereMaterial = new THREE.MeshPhongMaterial({
     color: 'yellow',
     emissive: 'yellow',
     shininess: 800,
     wireframe: true
 });
+const sunTexture = new THREE.TextureLoader().load('images/sun.jpg')
 
-const torus = new THREE.Mesh(
-    new THREE.TorusGeometry(5, 0.9, 10),
-    new THREE.MeshBasicMaterial({color: 'green'})
+const sun = new THREE.Mesh(
+    new THREE.SphereGeometry(20, 80, 80),
+    new THREE.MeshBasicMaterial({map: sunTexture})
 )
 
-torus.position.set(2, 18,1)
-scene.add(torus)
+sun.position.set(-50, 15, -300)
+
+
+scene.add(sun)
 
 const sphere = new THREE.Mesh(sphereGeometry, textureMapMaterial);
 
@@ -105,10 +108,11 @@ function animate() {
     camera.lookAt(1,2,4)
     line.rotation.y += 0.001;
     line.rotation.x += 0.001;
-    sphere.rotation.y += 0.001;
+    sphere.rotation.y += 0.0001;
     sphere.rotation.x += 0.0001;
     renderer.render(scene, camera);
-    torus.rotation.x += 0.001;
+    sun.rotation.y += 0.001
+
 }
 
 animate();
